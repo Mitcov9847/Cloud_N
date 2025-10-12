@@ -55,7 +55,7 @@ systemctl start nginx
 ```
 Пояснение: User Data — это скрипт, который автоматически выполняется при первом запуске инстанса. В данном случае он обновляет систему, устанавливает утилиту htop и веб-сервер Nginx, а также настраивает его автозапуск.
 
-Скриншот: ec2_launch.png
+<img width="1524" height="689" alt="image" src="https://github.com/user-attachments/assets/63eac4ea-3974-4657-9878-04b06f74cc9b" />
 
 ### Шаг 2. Мониторинг и статус инстанса
 Вкладка Status checks:
@@ -70,7 +70,7 @@ Instance reachability check: проверяет доступность ОС на
 Когда важен детализированный мониторинг?
 Если требуется высокая точность и быстрый отклик на изменения производительности (например, для серверов с большим трафиком или критичных приложений).
 
-Скриншот: ec2_monitoring.png
+<img width="1527" height="465" alt="image" src="https://github.com/user-attachments/assets/b7438dcb-3cd0-4825-9fcf-5224715a5779" />
 
 ### Шаг 3. Подключение к EC2 по SSH
 На локальной машине:
@@ -84,35 +84,28 @@ ssh -i "malcolmmarvellous-keypair.pem" ec2-user@51.44.22.51
 ec2-user — стандартный пользователь Amazon Linux.
 Пароль не используется для безопасности.
 
-Скриншот: ssh_connect.png
+<img width="1477" height="377" alt="image" src="https://github.com/user-attachments/assets/932827e1-97ce-4ed0-b80f-4e627cb5f8ef" />
 
 ### Шаг 4. Проверка состояния Nginx
 ```
 systemctl status nginx
 ```
 Проверка показывает, что сервис активен и работает.
-
 Для доступа через браузер используется публичный IP инстанса: http://51.44.22.51.
 
-Скриншот: nginx_status.png
-
-Контрольный вопрос:
-Для чего используется Nginx?
-Nginx — веб-сервер и обратный прокси. Обрабатывает HTTP-запросы, отдаёт статические файлы и может проксировать динамический контент.
+<img width="1806" height="530" alt="image" src="https://github.com/user-attachments/assets/984f74f3-99d1-46da-ad7d-84ae96e43ef5" />
 
 ### Шаг 5. Подготовка и передача файлов на сервер
 На локальной машине:
-
 ```
 scp -i "malcolmmarvellous-keypair.pem" C:\Users\mihai\Desktop\Cloud_N\lab02\*.html ec2-user@51.44.22.51:
 ```
-Команда scp копирует файлы на сервер по SSH.
 
+Команда scp копирует файлы на сервер по SSH.
 Файлы попадают в домашнюю директорию пользователя (/home/ec2-user).
 
 ### Шаг 6. Перемещение файлов в директорию веб-сервера
 На сервере:
-
 ```
 sudo mv ~/index.html ~/about.html ~/contact.html /usr/share/nginx/html/
 sudo chown root:root /usr/share/nginx/html/*.html
@@ -124,14 +117,14 @@ sudo mv — перемещает файлы в системную директо
 chown root:root — меняет владельца файлов на root.
 chmod 644 — устанавливает права доступа: чтение для всех, запись только для владельца.
 
-Скриншот: nginx_html_files.png
+<img width="1919" height="349" alt="image" src="https://github.com/user-attachments/assets/203315a2-4f8a-4798-98b1-da892726148f" />
 
 ### Шаг 7. Проверка сайта
 
 В браузере открывается http://51.44.22.51.
 Доступны страницы: index.html, about.html, contact.html.
 
-Скриншот: website_screenshot.png
+<img width="1919" height="532" alt="image" src="https://github.com/user-attachments/assets/abd2409a-c001-4d18-ba65-2b0a1ded93e4" />
 
 ### Шаг 8. Дополнительные настройки и проверки
 Можно проверить логи Nginx:
@@ -145,13 +138,6 @@ sudo tail -f /var/log/nginx/error.log
 ```
 sudo systemctl enable nginx
 ```
-Проверка портов с помощью ss:
-
-```
-ss -tuln | grep 80
-```
-Пояснение:
-Эти шаги помогают убедиться, что веб-сервер работает корректно, слушает нужный порт и файлы доступны для всех.
 
 ### Шаг 9. Выводы
 EC2 инстанс успешно запущен и доступен.
