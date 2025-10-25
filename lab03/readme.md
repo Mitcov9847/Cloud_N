@@ -32,11 +32,7 @@ _Amazon VPC (Virtual Private Cloud)_ — это собственная вирт�
 1. Войти в AWS Management Console.
 2. Убедиться, что регион установлен на `Frankfurt` (eu-central-1).
 
-![image](https://i.imgur.com/HSfZFlO.png)
-
-3. В строке поиска ввести _VPC_ и открыть консоль.
-
-![image](https://i.imgur.com/3go9Au4.png)
+<img width="409" height="659" alt="{F03F8CD6-A809-429C-9F43-567A214AF80A}" src="https://github.com/user-attachments/assets/93c19006-04f7-4fea-9780-adb2ef4c6a5a" />
 
 ### Шаг 2. Создание VPC
 
@@ -52,14 +48,7 @@ _Amazon VPC (Virtual Private Cloud)_ — это собственная вирт�
 
 3. Нажать `Create VPC`.
 
-![image](https://i.imgur.com/hcZmiEj.png)
-![image](https://i.imgur.com/siAelWu.png)
-
-_VPC_ — это “контейнер” для подсетей. Внутри одной VPC можно создавать десятки подсетей с разными маршрутами и правилами.
-
-> **Вопрос:** Что обозначает маска `/16`? И почему нельзя использовать, например, `/8`?
->
-> **Ответ:** Маска **/16** означает, что первые 16 бит адреса используются для обозначения сети, а оставшиеся — для устройств внутри неё. Это даёт 65 536 возможных IP-адресов, что достаточно для небольшой облачной сети. Маску **/8** использовать нельзя, потому что она создаёт слишком большую сеть (около 16 миллионов адресов), что нарушает ограничения AWS и усложняет управление ресурсами.
+<img width="1583" height="505" alt="{A08AB396-CA15-4950-BA64-4570F51D1376}" src="https://github.com/user-attachments/assets/062acf94-97de-4399-9be3-1dcb9a28928d" />
 
 ### Шаг 3. Создание Internet Gateway (IGW)
 
@@ -68,19 +57,15 @@ Internet Gateway позволяет ресурсам внутри VPC выход
 1. В левой панели необходимо выберать `Internet Gateways` → `Create internet gateway`.
 2. Указать имя: `student-igw-kXX`.
 
-![image](https://i.imgur.com/gFxKZzc.png)
-![image](https://i.imgur.com/Hj8gFUW.png)
-![image](https://i.imgur.com/UqvLOsS.png)
+<img width="1610" height="473" alt="{13FFE28D-32D8-4EEC-BBBC-C31750855755}" src="https://github.com/user-attachments/assets/40c6647b-9bce-49a6-a8a4-eea6e649434c" />
 
 3. Теперь нужно “прикрепить” (Attach) шлюз к сети:
    - Выберать созданный IGW.
    - Нажать `Actions` → `Attach to VPC`.
    - В списке выбрать `student-vpc-kXX`.
    - Подтвердить действие.
+<img width="1799" height="405" alt="{9BF62EE6-A141-4497-A3FE-AEDE60873982}" src="https://github.com/user-attachments/assets/b699f51f-f31a-49c4-bb21-00abe78878d1" />
 
-![image](https://i.imgur.com/IMqYL4B.png)
-![image](https://i.imgur.com/dlpDswr.png)
-![image](https://i.imgur.com/na1wy1f.png)
 
 ### Шаг 4. Создание подсетей
 
@@ -100,9 +85,8 @@ _Подсети (subnets)_ — это сегменты внутри VPC, кот�
    - `IPv4 CIDR block`: `10.(k%30).1.0/24`
       > Диапазон IP-адресов, которые будут выданы ресурсам в этой подсети
 3. Нажать `Create subnet`.
-
-![image](https://i.imgur.com/RfclYEE.png)
-![image](https://i.imgur.com/E7CLLGC.png)
+4. 
+<img width="1580" height="367" alt="{9BA202ED-B2CF-4EF4-B296-5700F11E3F6F}" src="https://github.com/user-attachments/assets/10eece77-7315-4299-8ece-1f272e77a468" />
 
 > **Вопрос:** Является ли подсеть «публичной» на данный момент? Почему?
 >
@@ -122,8 +106,8 @@ _Подсети (subnets)_ — это сегменты внутри VPC, кот�
       > Диапазон адресов не должен пересекаться с диапазоном публичной подсети.
 3. Нажать `Create subnet`.
 
-![image](https://i.imgur.com/eXNoqvf.png)
-![image](https://i.imgur.com/hAQPFgO.png)
+<img width="1578" height="386" alt="{4DAED59F-BD30-4E0B-8B64-67684F99FC2E}" src="https://github.com/user-attachments/assets/f8f5413b-27b7-4311-b022-33ff09b6cf0a" />
+
 
 > **Вопрос:** Является ли подсеть «приватной» на данный момент? Почему?
 >
@@ -148,8 +132,7 @@ _Подсети (subnets)_ — это сегменты внутри VPC, кот�
    - `VPC`: `student-vpc-kXX`
    - Нажать `Create route table`
 
-![image](https://i.imgur.com/RM7KV4f.png)
-![image](https://i.imgur.com/9r2dMtd.png)
+<img width="1584" height="591" alt="{06E1AD55-F25F-438B-A9FC-E1EF0996FEF2}" src="https://github.com/user-attachments/assets/d532d6f2-d22b-4064-8b48-18a32da66892" />
 
    - Перейти на вкладку `Routes` и нажать `Edit routes` → `Add route`.
    - Заполнить:
@@ -158,13 +141,14 @@ _Подсети (subnets)_ — это сегменты внутри VPC, кот�
       - `Target`: выбрать Internet Gateway (`student-igw-kXX`).
    - Нажать `Save changes`.
 
-![image](https://i.imgur.com/1i4XRXk.png)
-![image](https://i.imgur.com/s7sgrsG.png)
+<img width="1616" height="674" alt="{6E4A5B37-EF92-4C7B-B63F-4E5D7BB0461A}" src="https://github.com/user-attachments/assets/358c4f19-8b2d-49e6-9f28-f2bfed2d9d19" />
+
 
    - Перейти на вкладку `Subnet associations` → `Edit subnet associations`.
    - Отметить `public-subnet-kXX` и нажать `Save associations`.
 
-![image](https://i.imgur.com/8Y3waoO.png)
+<img width="1613" height="644" alt="{2BA07A2E-2222-45F5-9DCF-0BCC48C350F9}" src="https://github.com/user-attachments/assets/1c62c9de-d504-4212-8f39-74264c67b96b" />
+
 
 Теперь трафик из публичной подсети (например, от веб-сервера или NAT Gateway) будет отправляться наружу через Internet Gateway. Связь `“0.0.0.0/0 → IGW”` — именно то, что делает подсеть публичной.
 
@@ -180,12 +164,11 @@ _Подсети (subnets)_ — это сегменты внутри VPC, кот�
    - `VPC`: `student-vpc-kXX`
    - Нажать `Create route table`.
 
-![image](https://i.imgur.com/s4MW6RK.png)
-
 3. Перейти на вкладку `Subnet associations` → `Edit subnet associations`.
 4. Отметить `private-subnet-kXX` и нажать `Save associations`.
 
-![image](https://i.imgur.com/G5Dikyv.png)
+<img width="1581" height="600" alt="{79310D90-E157-424E-8471-5BD20CBE8285}" src="https://github.com/user-attachments/assets/d8b11980-9c80-4d3f-a701-cb5b2452113a" />
+
 
 На данный момент все ресурсы, которые будут созданы в приватной подсети, не смогут выходить в Интернет, так как на данный момент нет NAT Gateway и соответствующего маршрута.
 
@@ -205,8 +188,7 @@ _Elastic IP_ — это статический публичный IPv4-адре�
 1. В левой панели необходимо выбрать `Elastic IPs` → `Allocate Elastic IP address`.
 2. Нажать Allocate.
 
-![image](https://i.imgur.com/DqJrSgD.png)
-![image](https://i.imgur.com/HRGIp4J.png)
+<img width="1590" height="520" alt="{A535EB42-31B7-4379-ADD0-33EAA2097E2C}" src="https://github.com/user-attachments/assets/339fe1bb-fa38-453c-a59c-07deff875c7f" />
 
 #### Шаг 6.2. Создание NAT Gateway
 
@@ -219,11 +201,12 @@ _Elastic IP_ — это статический публичный IPv4-адре�
    - `Elastic IP allocation ID`: выбрать EIP, созданный на предыдущем шаге.
 3. Нажать `Create NAT gateway`.
 
-![image](https://i.imgur.com/gofUNA2.png)
+<img width="1613" height="672" alt="{633D898E-E2EC-4294-BD0A-4901C56C20D9}" src="https://github.com/user-attachments/assets/f7b9ecb0-422f-41cd-88fe-f2112ec80a28" />
+
 
 Подождать 2–3 минуты, пока статус изменится с `Pending` на `Available`. Это значит, что NAT Gateway готов к работе.
 
-![image](https://i.imgur.com/oeffvE4.png)
+<img width="1173" height="288" alt="{A7A26657-F674-4903-813E-A6BDCF857CC1}" src="https://github.com/user-attachments/assets/0a485228-ed61-4877-ada1-885e9bd6ecfe" />
 
 #### Шаг 6.3. Изменение приватной таблицы маршрутов
 
@@ -234,8 +217,7 @@ _Elastic IP_ — это статический публичный IPv4-адре�
    - `Target`: выбрать NAT Gateway (`nat-gateway-kXX`).
 4. Нажать `Save changes`.
 
-![image](https://i.imgur.com/NbjthJr.png)
-![image](https://i.imgur.com/jJfI2J2.png)
+<img width="1579" height="691" alt="{0B93516E-78D6-4E33-8E7F-917302F63284}" src="https://github.com/user-attachments/assets/eecca62f-4388-4ab1-98ca-17f97cb235e4" />
 
 Теперь ресурсы в приватной подсети смогут выходить в Интернет через NAT Gateway.
 
@@ -252,8 +234,8 @@ _Security Group (SG)_ — это виртуальный брандмауэр н�
    - Тип: `HTTP`, Протокол: `TCP`, Порт: `80`, Источник: `0.0.0.0/0`
    - Тип: `HTTPS`, Протокол: `TCP`, Порт: `443`, Источник: `0.0.0.0/0`
 
-![image](https://i.imgur.com/8XHJvFA.png)
-![image](https://i.imgur.com/TPC6gjl.png)
+<img width="1906" height="364" alt="{DEEA07C7-A46C-4C8E-BEC7-FFE7C14C77B0}" src="https://github.com/user-attachments/assets/9cdc89f5-3422-4b26-bcc8-6c606173b406" />
+
 
 4. Создать еще две Security Groups:
    - `bastion-sg-kXX` для bastion host с разрешением входящего трафика на порт `22` (SSH) только из IP-адреса студента.
@@ -261,10 +243,9 @@ _Security Group (SG)_ — это виртуальный брандмауэр н�
       - Тип: `MySQL/Aurora`, Протокол: `TCP`, Порт: `3306`, Источник: `web-sg-kXX` (разрешить доступ только с веб-сервера)
       - Тип: `SSH`, Протокол: `TCP`, Порт: `22`, Источник: `bastion-sg-kXX` (разрешить доступ только с bastion host)
 
-![image](https://i.imgur.com/ltxRGSs.png)
-![image](https://i.imgur.com/6azhcQf.png)
-![image](https://i.imgur.com/9GfC8GG.png)
-![image](https://i.imgur.com/JO0Ki97.png)
+<img width="1885" height="249" alt="{20D30C21-0DF0-44C2-BC86-F35988DDAF08}" src="https://github.com/user-attachments/assets/16f315fd-a58d-4e1e-8812-aba88faebe29" />
+<img width="1605" height="374" alt="{0C2DC8D2-376A-45AF-AFEF-685F4FD364DF}" src="https://github.com/user-attachments/assets/4f63cd27-6a5a-4218-bce2-91f49d034790" />
+
 
 > **Вопрос:** Что такое *Bastion Host* и зачем он нужен в архитектуре с приватными подсетями?
 >
@@ -289,7 +270,8 @@ _Для всех инстансов использовать_:
 - Хранилище: оставить по умолчанию (8 ГБ).
 - Теги: добавить тег `Name` с соответствующим именем инстанса.
 
-![image](https://i.imgur.com/qyJqSjb.png)
+<img width="745" height="701" alt="{98B14593-E266-4152-A86B-AF75A45B4449}" src="https://github.com/user-attachments/assets/7002c75a-69e5-4659-b642-3b4b6cf3bc53" />
+
 
 Для `bastion-host`:
 
@@ -304,10 +286,9 @@ _Для всех инстансов использовать_:
    dnf install -y mariadb105
    ```
 
-![image](https://i.imgur.com/amRGtBd.png)
-![image](https://i.imgur.com/S2vvWdg.png)
-![image](https://i.imgur.com/qses0tn.png)
-![image](https://i.imgur.com/9oIpAVK.png)
+<img width="1914" height="324" alt="{C4BBCC28-3186-4A9F-94CA-6B003C789AA3}" src="https://github.com/user-attachments/assets/344f6709-ede3-4085-a87d-0e1c53495e82" />
+<img width="1546" height="190" alt="{3B79E3F2-2E87-45AC-8722-1DCF231C2693}" src="https://github.com/user-attachments/assets/92b5964d-a108-4a47-8502-020004f0dc2a" />
+
 
 Для `web-server`:
 
@@ -325,10 +306,6 @@ _Для всех инстансов использовать_:
    systemctl start httpd
    ```
 
-![image](https://i.imgur.com/r1Xgztz.png)
-![image](https://i.imgur.com/qAEJJ0g.png)
-![image](https://i.imgur.com/le1kHIM.png)
-![image](https://i.imgur.com/ABCVXG2.png)
 
 Для `db-server`:
 
@@ -346,10 +323,9 @@ _Для всех инстансов использовать_:
    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'StrongPassword123!'; FLUSH PRIVILEGES;"
    ```
 
-![image](https://i.imgur.com/8kwzSs3.png)
-![image](https://i.imgur.com/RnTKqHC.png)
-![image](https://i.imgur.com/YiDTfQY.png)
-![image](https://i.imgur.com/oMCl9yW.png)
+<img width="1551" height="710" alt="{4099EDBA-5464-43DB-B8CE-EEA9DE8F0BB9}" src="https://github.com/user-attachments/assets/069c2f4b-947c-4efb-923a-1544c23a6e4f" />
+
+
 
 ### Шаг 9. Проверка работы
 
@@ -574,5 +550,6 @@ Stop-Service ssh-agent
 2. [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) — руководство пользователя по созданию и настройке виртуальных частных сетей в AWS.
 3. [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) — руководство пользователя по работе с виртуальными машинами EC2.
 4. [AWS NAT Gateway Documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html) — официальная документация по созданию и использованию NAT Gateway в AWS.
+
 
 
