@@ -334,7 +334,7 @@ _Для всех инстансов использовать_:
 1. Необходимо подождать, пока все инстансы запустятся (статус `running`).
 2. Найти публичный IP-адрес `web-server` и открыть его в браузере. Должна появиться страница с информацией о PHP.
 
-![image](https://i.imgur.com/Alvs7QM.png)
+<img width="670" height="629" alt="{44BBC4C9-C70F-4E85-9020-90A7F1416007}" src="https://github.com/user-attachments/assets/0e053110-19a7-41d7-b6b9-64ab00b7c9ad" />
 
 3. Необходимо подключититься к `bastion-host` по SSH:
 
@@ -419,68 +419,6 @@ EXIT;
 
 6. Выйти из `db-server` и `bastion-host`.
 
-### Шаг 10. Дополнительные задания. Подключение в приватную подсеть через Bastion Host
-
-Так как приватная подсеть не имеет выхода в интернет, подключение к `db-server` выполняется через промежуточный сервер — `bastion-host`.
-
-1. На локальной машине необходимо выполнить следующие команды. Это запустит SSH Agent и добавит приватный ключ в агент:
-
-В PowerShell необходимо запустить службу SSH Agent и добавить приватный ключ:
-
-```bash
-Get-Service ssh-agent | Set-Service -StartupType Automatic
-Start-Service ssh-agent
-ssh-add .\student-key-k1.pem
-```
-
-2. Необходимо подключиться к bastion-host с опцией `-A` и `-J`:
-
-Подключение выполняется с опциями `-A` и `-J`, которые позволяют использовать переадресацию `SSH`-ключа и указать промежуточный хост:
-
-```bash
-ssh -A -J ec2-user@3.123.128.242 ec2-user@10.1.2.20
-```
-
-`-A` — включает переадресацию ключей (Agent Forwarding);
-
-`-J` — указывает bastion как промежуточный узел.
-
-![image](https://i.imgur.com/yVWNOfY.png)
-
-3. Обновить систему на `db-server`:
-
-```bash
-sudo dnf update -y
-```
-
-4. Установить `htop`:
-
-```bash
-sudo dnf install -y htop
-```
-
-> Если обновление и установка прошли успешно, значит `NAT Gateway` работает корректно.
-
-![image](https://i.imgur.com/RM7CsHi.png)
-
-5. Подключиться к `MySQL` серверу:
-
-```bash
-mysql -u root -p
-```
-
-![image](https://i.imgur.com/AR7axSA.png)
-
-> Если `MySQL` не установлен, выполните `sudo dnf install -y mariadb105`. Пароль `StrongPassword123!`.
-
-6. Выйти из `MySQL` и затем из `db-server` и `bastion-host`.
-
-7. На локальном компьютере, завершить работу с `SSH Agent`:
-
-```bash
-ssh-add -D
-Stop-Service ssh-agent
-```
 
 ## Завершение работы
 
@@ -548,6 +486,7 @@ Stop-Service ssh-agent
 1. [AWS Documentation](https://docs.aws.amazon.com/) — официальная документация по сервисам Amazon Web Services.
 2. [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) — руководство пользователя по созданию и настройке виртуальных частных сетей в AWS.
 3. [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) — руководство пользователя по работе с виртуальными машинами EC2.
+
 
 
 
