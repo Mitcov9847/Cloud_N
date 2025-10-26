@@ -427,39 +427,40 @@ exit;
 
 1. Удалить `EC2`-инстансы.
 
-![image](https://i.imgur.com/rXHUkmA.png)
+<img width="1592" height="355" alt="{9ED96671-4D25-4700-B571-4AB7C1F45CE6}" src="https://github.com/user-attachments/assets/0f32e5dc-ba30-42d5-bf62-df99a35d8fe1" />
 
 2. Удалить `NAT Gateway` (подождите, пока он будет удалён).
 
-![image](https://i.imgur.com/7QMZHr5.png)
+<img width="1599" height="285" alt="{D18B5D9E-CC70-4671-A6B3-E187208CA86D}" src="https://github.com/user-attachments/assets/106e0fa6-ae0c-4e75-a75a-8f8aaa63045b" />
 
 3. Удалить `Elastic IP`.
 
    - `VPC` -> `Elastic IPs` -> выберать `EIP` -> `Actions` -> `Release Elastic IP addresses`.
 
-![image](https://i.imgur.com/Y6990LO.png)
+<img width="1601" height="306" alt="{C5A88743-4B7B-459E-A066-EE61EDE70C64}" src="https://github.com/user-attachments/assets/b0ad5a78-9a91-4819-b181-201267ff52bb" />
+
 
 4. Удалить `Security Groups`.
 
    - `VPC` -> `Security Groups` -> выберать нужную группу -> `Actions` -> `Delete Security Group`.
 
-![image](https://i.imgur.com/P3VTruc.png)
+<img width="1582" height="193" alt="{04AD3A0C-3452-4307-A0F4-9A1AD35539AC}" src="https://github.com/user-attachments/assets/9a9dcd38-12c2-4f50-8589-5952e3c04eac" />
 
 5. Удалить `Internet Gateway`.
 
    - `VPC` -> `Internet Gateways` -> выберать `IGW` -> `Actions` -> `Detach from VPC` -> подтвердить.
    - Затем снова выберать IGW -> `Actions` -> `Delete internet gateway`.
 
-![image](https://i.imgur.com/weNxyew.png)
-![image](https://i.imgur.com/n2qekV6.png)
+<img width="1601" height="162" alt="{20089D16-F820-4034-B484-2ED89C67791F}" src="https://github.com/user-attachments/assets/8ddc22c9-0f4f-4a2c-b01e-525aca651b87" />
+<img width="1604" height="118" alt="{39900A97-7CF9-43D3-B44E-890A4A06568D}" src="https://github.com/user-attachments/assets/4b27cc25-c487-4958-ba4d-8ce8036ed6a3" />
 
 6. Удалить созданную `VPC`.
 
    - `VPC` -> `Your VPCs` -> выберите вашу VPC -> `Actions` -> `Delete VPC`.
    - Подтвердите удаление.
    - Если удаление не удаётся, проверьте, что все ресурсы (подсети, таблицы маршрутов и т.д.) были удалены.
-
-![image](https://i.imgur.com/2TCt9b2.png)
+   - 
+<img width="1583" height="251" alt="{FE13D30A-9A4C-4F07-A0AB-1FC384F41A36}" src="https://github.com/user-attachments/assets/acccb338-e0c5-4ecf-bda4-bfe1bfbae1c5" />
 
 > Удаление ресурсов в неправильном порядке может привести к ошибкам, так как некоторые ресурсы зависят от других.
 
@@ -487,6 +488,7 @@ exit;
 1. [AWS Documentation](https://docs.aws.amazon.com/) — официальная документация по сервисам Amazon Web Services.
 2. [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) — руководство пользователя по созданию и настройке виртуальных частных сетей в AWS.
 3. [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) — руководство пользователя по работе с виртуальными машинами EC2.
+
 
 
 
