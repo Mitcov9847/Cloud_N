@@ -375,6 +375,9 @@ sudo dnf install -y mariadb105-server
 sudo systemctl enable --now mariadb
 sudo systemctl status mariadb
 ```
+<img width="1121" height="590" alt="{C8CA67AD-EC88-4E50-A7DB-E338AA0CFB05}" src="https://github.com/user-attachments/assets/4f237d88-2da0-41e1-92f7-735ebc58f206" />
+<img width="1760" height="461" alt="{C8692504-B9A2-42FA-8C7B-0688E807DEFE}" src="https://github.com/user-attachments/assets/ce7b4b6c-c3a8-4a42-866e-605a350749a1" />
+<img width="1751" height="758" alt="{F7BD5B3D-10CA-4817-A84D-24D2560BD385}" src="https://github.com/user-attachments/assets/84c3145c-c445-4099-ac9d-f6ae689f8688" />
 
 Если служба MariaDB работает, её статус отображается как `active (running)`.
 
@@ -385,40 +388,38 @@ sudo systemctl status mariadb
 sudo ss -ltnp | grep 3306
 ```
 
-![image](https://i.imgur.com/Sj8TCHp.png)
+<img width="805" height="84" alt="{F1CE1FA9-85F4-455E-949D-5C1DFAD3BE59}" src="https://github.com/user-attachments/assets/4ca281aa-e3ce-4213-b518-40d2c7a7ca99" />
 
 Далее выполняется подключение к базе данных под пользователем `root` и создание отдельного пользователя для работы приложения.
 
 ```bash
 mysql -u root -p
 ```
-
-![image](https://i.imgur.com/zvBiSR5.png)
-![image](https://i.imgur.com/hQdfJeZ.png)
-
 После входа в консоль MariaDB создаётся пользователь `lab`, которому разрешено подключаться из подсетей `10.*.*.*` (внутренняя сеть VPC):
 
 ```sql
-CREATE USER 'lab'@'10.%' IDENTIFIED BY 'StrongPassword123!';
-GRANT ALL PRIVILEGES ON *.* TO 'lab'@'10.%' WITH GRANT OPTION;
+CREATE DATABASE IF NOT EXISTS testdb;
+
+CREATE USER IF NOT EXISTS 'jenia'@'localhost' IDENTIFIED BY 'StrongPassword';
+GRANT ALL PRIVILEGES ON testdb.* TO 'jenia'@'localhost';
+
+CREATE USER IF NOT EXISTS 'jenia'@'%' IDENTIFIED BY 'StrongPassword';
+GRANT ALL PRIVILEGES ON testdb.* TO 'jenia'@'%';
+
 FLUSH PRIVILEGES;
-EXIT;
+exit;
 ```
+<img width="678" height="198" alt="{A1C5573F-64D6-4763-BA82-3334716EAC05}" src="https://github.com/user-attachments/assets/6e6c9d40-8387-4d6b-a3c8-a7c606e21b4b" />
 
 После успешного подключения к Bastion Host необходимо проверить доступность базы данных, расположенной в приватной подсети.
-
 Для этого выполняется подключение к MariaDB с использованием созданного пользователя `lab`:
 
-   ```bash
-   mysql -h 10.1.2.20 -u lab -p
-   ```
-
-![image](https://i.imgur.com/4eF3xON.png)
+<img width="678" height="198" alt="{A1C5573F-64D6-4763-BA82-3334716EAC05}" src="https://github.com/user-attachments/assets/7df025d2-3d28-4244-b4cb-7a5c890c7ee0" />
 
 Успешное подключение к MariaDB через Bastion Host подтверждает корректную работу маршрутов, NAT Gateway и Security Groups.
 
 6. Выйти из `db-server` и `bastion-host`.
-
+<img width="527" height="96" alt="{13CD55BA-1684-4B2C-BD23-7947C937379C}" src="https://github.com/user-attachments/assets/23733c8f-0f9f-43e0-a575-676c54fee644" />
 
 ## Завершение работы
 
@@ -486,6 +487,7 @@ EXIT;
 1. [AWS Documentation](https://docs.aws.amazon.com/) — официальная документация по сервисам Amazon Web Services.
 2. [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) — руководство пользователя по созданию и настройке виртуальных частных сетей в AWS.
 3. [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) — руководство пользователя по работе с виртуальными машинами EC2.
+
 
 
 
