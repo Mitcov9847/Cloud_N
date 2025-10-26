@@ -341,8 +341,7 @@ _Для всех инстансов использовать_:
    ```bash
    ssh -i <your-nickname>-key.pem ec2-user@<Bastion-Host-Public-IP>
    ```
-
-![image](https://i.imgur.com/SfvuRNE.png)
+<img width="952" height="446" alt="{F5B94C0B-06FD-4CAA-BFBE-8BA8A5BB9F74}" src="https://github.com/user-attachments/assets/fd095661-f4af-49e3-a31f-b5fc0ae2d02b" />
 
 4. Проверить подключение к интернету с `bastion-host` выполнив `ping`:
 
@@ -352,7 +351,8 @@ _Для всех инстансов использовать_:
 
    > Если пинги успешны, значит публичная подсеть и IGW настроены правильно.
 
-![image](https://i.imgur.com/So17qnB.png)
+<img width="526" height="46" alt="{0376FDD3-2676-4BCF-B5DE-ED8FE2488001}" src="https://github.com/user-attachments/assets/b84abfcd-cccb-4b09-8b2c-537ef73a128d" />
+
 
 5. С `bastion-host` попробовать подключиться к `db-server`
 
@@ -486,6 +486,7 @@ EXIT;
 1. [AWS Documentation](https://docs.aws.amazon.com/) — официальная документация по сервисам Amazon Web Services.
 2. [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) — руководство пользователя по созданию и настройке виртуальных частных сетей в AWS.
 3. [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) — руководство пользователя по работе с виртуальными машинами EC2.
+
 
 
 
