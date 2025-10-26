@@ -361,6 +361,7 @@ _Для всех инстансов использовать_:
 ```bash
 chmod 400 student-key.pem
 ```
+<img width="483" height="50" alt="{076979FF-074E-476C-AFB5-A3051F88FF17}" src="https://github.com/user-attachments/assets/e6d8b52e-e90d-43eb-9dfc-c5c91ab617d1" />
 
 Команда делает файл доступным только для чтения владельцем.
 Это требование системы безопасности `AWS` — иначе подключение будет отклонено как небезопасное.
@@ -485,6 +486,7 @@ EXIT;
 1. [AWS Documentation](https://docs.aws.amazon.com/) — официальная документация по сервисам Amazon Web Services.
 2. [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) — руководство пользователя по созданию и настройке виртуальных частных сетей в AWS.
 3. [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html) — руководство пользователя по работе с виртуальными машинами EC2.
+
 
 
 
