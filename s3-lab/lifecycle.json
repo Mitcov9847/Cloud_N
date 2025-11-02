@@ -1,0 +1,24 @@
+{
+  "Rules": [
+    {
+      "ID": "logs-archive",
+      "Filter": {
+        "Prefix": "logs/"
+      },
+      "Status": "Enabled",
+      "Transitions": [
+        {
+          "Days": 30,
+          "StorageClass": "STANDARD_IA"
+        },
+        {
+          "Days": 365,
+          "StorageClass": "DEEP_ARCHIVE"
+        }
+      ],
+      "Expiration": {
+        "Days": 1825
+      }
+    }
+  ]
+}
