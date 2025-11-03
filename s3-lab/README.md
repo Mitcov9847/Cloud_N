@@ -146,7 +146,7 @@ aws s3api put-bucket-versioning --bucket cc-lab4-priv-01 --versioning-configurat
 aws s3api get-bucket-versioning --bucket cc-lab4-pub-01
 aws s3api get-bucket-versioning --bucket cc-lab4-priv-01
 ```
-Скриншот вкладки Versions:
+<img width="744" height="227" alt="{38C367F7-262E-4999-89DD-4EFC31E42066}" src="https://github.com/user-attachments/assets/5f214c32-f749-4b44-ac2e-e51f7d40a947" />
 
 Вопросы и ответы:
 
@@ -229,6 +229,7 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
 ```
+
 
 
 
