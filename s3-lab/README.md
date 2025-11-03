@@ -100,7 +100,7 @@ aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\content\logo.png" s3://cc-lab4-p
 <img width="1599" height="665" alt="{EC2750A3-0A72-4DBB-999C-6A3FC29870F2}" src="https://github.com/user-attachments/assets/f137b88b-6887-4a71-928d-914b3e4bf6e6" />
 
 
-3.2 Приватный бакет
+# 3.2 Приватный бакет
 # Загрузка лог-файла
 ```
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\private\logs\activity.csv" s3://cc-lab4-priv-01/logs/activity.csv
@@ -116,7 +116,7 @@ sync — синхронизация директорий, копирует то�
 Что делает флаг --acl public-read?
 Делает объект публичным, доступным для всех по URL.
 
-Шаг 4. Проверка доступа к объектам
+# Шаг 4. Проверка доступа к объектам
 Публичные объекты доступны по ссылкам:
 
 user1.jpg
@@ -134,7 +134,7 @@ logo.png
 Чем отличается публичный объект от приватного?
 Публичный доступен всем через URL, приватный — только владельцу или через IAM-политику.
 
-Шаг 5. Версионирование объектов
+# Шаг 5. Версионирование объектов
 
 ```
 aws s3api put-bucket-versioning --bucket cc-lab4-pub-01 --versioning-configuration Status=Enabled
@@ -156,7 +156,7 @@ aws s3api get-bucket-versioning --bucket cc-lab4-priv-01
 Что произойдёт, если выключить версионирование?
 Старые версии останутся, новые будут записываться без версий.
 
-Шаг 6. Lifecycle-правила
+# Шаг 6. Lifecycle-правила
 
 Файл lifecycle.json:
 
@@ -202,7 +202,7 @@ aws s3api put-bucket-lifecycle-configuration --bucket cc-lab4-priv-01 --lifecycl
 Зачем нужны Lifecycle-правила?
 Для автоматизации перехода объектов в дешёвое или архивное хранение и удаления старых файлов.
 ```
-Шаг 7. Статический веб-сайт на S3
+# Шаг 7. Статический веб-сайт на S3
 ```
 # Создание бакета для веб-сайта
 aws s3 mb s3://cc-lab4-web-01 --region eu-central-1
@@ -221,7 +221,7 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 Скриншоты сайта:
 <img width="1604" height="932" alt="{1C5F9983-7D19-4F5E-89B5-4BC1BE4F2DCC}" src="https://github.com/user-attachments/assets/cb1e7f9c-718c-45e0-81f7-8d45acadc740" />
 
-Вопросы и ответы:
+# Вопросы и ответы:
 ```
 Что такое S3 Static Website Hosting?
 Позволяет размещать статические сайты (HTML, CSS, JS) без серверов.
@@ -229,6 +229,7 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
 ```
+
 
 
 
