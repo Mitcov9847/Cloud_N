@@ -101,8 +101,7 @@ aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\content\logo.png" s3://cc-lab4-p
 
 
 3.2 Приватный бакет
-powershell
-Копировать код
+
 # Загрузка лог-файла
 ```
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\private\logs\activity.csv" s3://cc-lab4-priv-01/logs/activity.csv
@@ -110,7 +109,6 @@ aws s3 cp "C:\Users\jenia\Desktop\s3-lab\private\logs\activity.csv" s3://cc-lab4
 Скриншот загрузки:
 
 Вопросы и ответы:
-
 В чём разница между aws s3 cp, mv и sync?
 cp — копирование файлов;
 mv — перемещение (копирование + удаление исходника);
@@ -231,5 +229,6 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
+
 
 
