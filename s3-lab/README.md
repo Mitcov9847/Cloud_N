@@ -196,13 +196,13 @@ aws s3api put-bucket-lifecycle-configuration --bucket cc-lab4-priv-01 --lifecycl
 <img width="641" height="673" alt="{9D6034D2-E557-4F26-9005-335116ED0EFC}" src="https://github.com/user-attachments/assets/487751ce-830a-470a-9c5c-1bdfbd5450a6" />
 
 Вопросы и ответы:
-
+```
 Что такое Storage Class в S3?
 Класс хранения определяет стоимость и скорость доступа: Standard, Standard-IA, Glacier, Deep Archive.
 
 Зачем нужны Lifecycle-правила?
 Для автоматизации перехода объектов в дешёвое или архивное хранение и удаления старых файлов.
-
+```
 Шаг 7. Статический веб-сайт на S3
 ```
 # Создание бакета для веб-сайта
@@ -223,12 +223,13 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 <img width="1604" height="932" alt="{1C5F9983-7D19-4F5E-89B5-4BC1BE4F2DCC}" src="https://github.com/user-attachments/assets/cb1e7f9c-718c-45e0-81f7-8d45acadc740" />
 
 Вопросы и ответы:
-
+```
 Что такое S3 Static Website Hosting?
 Позволяет размещать статические сайты (HTML, CSS, JS) без серверов.
 
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
+```
 
 
 
