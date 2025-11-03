@@ -105,9 +105,8 @@ aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\content\logo.png" s3://cc-lab4-p
 ```
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\private\logs\activity.csv" s3://cc-lab4-priv-01/logs/activity.csv
 ```
-Скриншот загрузки:
 
-Вопросы и ответы:
+### Вопросы и ответы:
 В чём разница между aws s3 cp, mv и sync?
 cp — копирование файлов;
 mv — перемещение (копирование + удаление исходника);
@@ -125,7 +124,7 @@ logo.png
 
 Приватный объект activity.csv недоступен публично.
 
-# Вопросы и ответы:
+### Вопросы и ответы:
 Чем отличается публичный объект от приватного?
 Публичный доступен всем через URL, приватный — только владельцу или через IAM-политику.
 
@@ -136,14 +135,13 @@ aws s3api put-bucket-versioning --bucket cc-lab4-pub-01 --versioning-configurati
 aws s3api put-bucket-versioning --bucket cc-lab4-priv-01 --versioning-configuration Status=Enabled
 ```
 Проверка:
-
 ```
 aws s3api get-bucket-versioning --bucket cc-lab4-pub-01
 aws s3api get-bucket-versioning --bucket cc-lab4-priv-01
 ```
 <img width="744" height="227" alt="{38C367F7-262E-4999-89DD-4EFC31E42066}" src="https://github.com/user-attachments/assets/5f214c32-f749-4b44-ac2e-e51f7d40a947" />
 
-# Вопросы и ответы:
+### Вопросы и ответы:
 
 Что такое версионирование в S3?
 Позволяет хранить все версии объекта, включая старые, чтобы можно было восстановить изменения.
@@ -191,7 +189,7 @@ aws s3api put-bucket-lifecycle-configuration --bucket cc-lab4-priv-01 --lifecycl
 
 <img width="641" height="673" alt="{9D6034D2-E557-4F26-9005-335116ED0EFC}" src="https://github.com/user-attachments/assets/487751ce-830a-470a-9c5c-1bdfbd5450a6" />
 
-# Вопросы и ответы:
+### Вопросы и ответы:
 Что такое Storage Class в S3?
 Класс хранения определяет стоимость и скорость доступа: Standard, Standard-IA, Glacier, Deep Archive.
 
@@ -199,15 +197,16 @@ aws s3api put-bucket-lifecycle-configuration --bucket cc-lab4-priv-01 --lifecycl
 Для автоматизации перехода объектов в дешёвое или архивное хранение и удаления старых файлов.
 
 # Шаг 7. Статический веб-сайт на S3
+
+### Создание бакета для веб-сайта
 ```
-# Создание бакета для веб-сайта
 aws s3 mb s3://cc-lab4-web-01 --region eu-central-1
 ```
-# Настройка статического сайта
+### Настройка статического сайта
 ```
 aws s3 website s3://cc-lab4-web-01/ --index-document index.html
 ```
-# Загрузка файлов сайта
+### Загрузка файлов сайта
 ```
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\content\logo.png" s3://cc-lab4-web-01/content/logo.png
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user1.jpg" s3://cc-lab4-web-01/avatars/user1.jpg
@@ -217,14 +216,14 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 Скриншоты сайта:
 <img width="1604" height="932" alt="{1C5F9983-7D19-4F5E-89B5-4BC1BE4F2DCC}" src="https://github.com/user-attachments/assets/cb1e7f9c-718c-45e0-81f7-8d45acadc740" />
 
-# Вопросы и ответы:
-```
+### Вопросы и ответы:
 Что такое S3 Static Website Hosting?
 Позволяет размещать статические сайты (HTML, CSS, JS) без серверов.
 
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
-```
+
+
 
 
 
