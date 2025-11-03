@@ -55,7 +55,7 @@ s3-lab/
 - Block all public access — снят.
 
 **Скриншот консоли AWS:**  
-![Публичный бакет](./screenshots/step2_pub_bucket.png)
+<img width="1554" height="514" alt="{20A5857A-1A84-4CBB-A4DD-BE268CA2ED84}" src="https://github.com/user-attachments/assets/f3e76847-c8b0-4115-9856-3baca65d5395" />
 
 ### 2.2 Приватный бакет
 
@@ -65,7 +65,7 @@ s3-lab/
 - Block all public access — включен.
 
 **Скриншот консоли AWS:**  
-![Приватный бакет](./screenshots/step2_priv_bucket.png)
+<img width="1902" height="740" alt="{C4636193-0E59-48FD-BEA4-E14CF2963CCA}" src="https://github.com/user-attachments/assets/0cd21c13-3cd8-40e6-9d4b-e9d733dcce6e" />
 
 **Вопросы и ответы:**
 
@@ -101,7 +101,6 @@ aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\content\logo.png" s3://cc-lab4-p
 
 
 3.2 Приватный бакет
-
 # Загрузка лог-файла
 ```
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\private\logs\activity.csv" s3://cc-lab4-priv-01/logs/activity.csv
@@ -230,6 +229,7 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
 ```
+
 
 
 
