@@ -82,22 +82,21 @@ s3-lab/
 
 ### 3.1 Публичный бакет
 
-```
 # Загрузка user1.jpg
+```
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user1.jpg" s3://cc-lab4-pub-01/avatars/user1.jpg
 ```
 <img width="1658" height="933" alt="{2AE3FA28-43D3-42CB-9753-C9E036DC0501}" src="https://github.com/user-attachments/assets/69297ae9-d0c8-49c5-b038-1cde0f6c11b4" />
 
 # Загрузка user2.jpg
+```
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user2.jpg" s3://cc-lab4-pub-01/avatars/user2.jpg
 ```
 <img width="1574" height="693" alt="{E75E9D7C-0C74-4795-897C-6C865CC826C9}" src="https://github.com/user-attachments/assets/3c2b729e-e1f3-4abe-8aa5-d3b256add2ed" />
-```
 # Загрузка logo.png
+```
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\content\logo.png" s3://cc-lab4-pub-01/content/logo.png
 ```
-
-Скриншот успешной загрузки:
 <img width="1599" height="665" alt="{EC2750A3-0A72-4DBB-999C-6A3FC29870F2}" src="https://github.com/user-attachments/assets/f137b88b-6887-4a71-928d-914b3e4bf6e6" />
 
 
@@ -232,4 +231,5 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
+
 
