@@ -85,29 +85,30 @@ s3-lab/
 ```powershell
 # Загрузка user1.jpg
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user1.jpg" s3://cc-lab4-pub-01/avatars/user1.jpg
-
+```
 # Загрузка user2.jpg
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user2.jpg" s3://cc-lab4-pub-01/avatars/user2.jpg
-
+```
 # Загрузка logo.png
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\content\logo.png" s3://cc-lab4-pub-01/content/logo.png
+```
+
 Скриншот успешной загрузки:
 
 3.2 Приватный бакет
 powershell
 Копировать код
 # Загрузка лог-файла
+```
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\private\logs\activity.csv" s3://cc-lab4-priv-01/logs/activity.csv
+```
 Скриншот загрузки:
 
 Вопросы и ответы:
 
 В чём разница между aws s3 cp, mv и sync?
-
 cp — копирование файлов;
-
 mv — перемещение (копирование + удаление исходника);
-
 sync — синхронизация директорий, копирует только новые или изменённые файлы.
 
 Что делает флаг --acl public-read?
@@ -132,16 +133,17 @@ logo.png
 Публичный доступен всем через URL, приватный — только владельцу или через IAM-политику.
 
 Шаг 5. Версионирование объектов
-powershell
-Копировать код
+
+```
 aws s3api put-bucket-versioning --bucket cc-lab4-pub-01 --versioning-configuration Status=Enabled
 aws s3api put-bucket-versioning --bucket cc-lab4-priv-01 --versioning-configuration Status=Enabled
+```
 Проверка:
 
-powershell
-Копировать код
+```
 aws s3api get-bucket-versioning --bucket cc-lab4-pub-01
 aws s3api get-bucket-versioning --bucket cc-lab4-priv-01
+```
 Скриншот вкладки Versions:
 
 Вопросы и ответы:
@@ -153,10 +155,10 @@ aws s3api get-bucket-versioning --bucket cc-lab4-priv-01
 Старые версии останутся, новые будут записываться без версий.
 
 Шаг 6. Lifecycle-правила
+
 Файл lifecycle.json:
 
-json
-Копировать код
+```
 {
   "Rules": [
     {
@@ -181,11 +183,12 @@ json
     }
   ]
 }
+```
 Применение:
 
-powershell
-Копировать код
+```
 aws s3api put-bucket-lifecycle-configuration --bucket cc-lab4-priv-01 --lifecycle-configuration file://C:\Users\jenia\Desktop\s3-lab\lifecycle.json
+```
 Скриншот Lifecycle правила:
 
 Вопросы и ответы:
@@ -197,18 +200,20 @@ aws s3api put-bucket-lifecycle-configuration --bucket cc-lab4-priv-01 --lifecycl
 Для автоматизации перехода объектов в дешёвое или архивное хранение и удаления старых файлов.
 
 Шаг 7. Статический веб-сайт на S3
-powershell
-Копировать код
+```
 # Создание бакета для веб-сайта
 aws s3 mb s3://cc-lab4-web-01 --region eu-central-1
-
+```
 # Настройка статического сайта
+```
 aws s3 website s3://cc-lab4-web-01/ --index-document index.html
-
+```
 # Загрузка файлов сайта
+```
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\content\logo.png" s3://cc-lab4-web-01/content/logo.png
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user1.jpg" s3://cc-lab4-web-01/avatars/user1.jpg
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user2.jpg" s3://cc-lab4-web-01/avatars/user2.jpg
+```
 URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 
 Скриншоты сайта:
@@ -221,4 +226,3 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
-
