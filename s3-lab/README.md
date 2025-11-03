@@ -186,22 +186,23 @@ aws s3api get-bucket-versioning --bucket cc-lab4-priv-01
   ]
 }
 ```
+
 Применение:
 
 ```
 aws s3api put-bucket-lifecycle-configuration --bucket cc-lab4-priv-01 --lifecycle-configuration file://C:\Users\jenia\Desktop\s3-lab\lifecycle.json
 ```
 Скриншот Lifecycle правила:
+
 <img width="641" height="673" alt="{9D6034D2-E557-4F26-9005-335116ED0EFC}" src="https://github.com/user-attachments/assets/487751ce-830a-470a-9c5c-1bdfbd5450a6" />
 
 Вопросы и ответы:
-```
 Что такое Storage Class в S3?
 Класс хранения определяет стоимость и скорость доступа: Standard, Standard-IA, Glacier, Deep Archive.
 
 Зачем нужны Lifecycle-правила?
 Для автоматизации перехода объектов в дешёвое или архивное хранение и удаления старых файлов.
-```
+
 # Шаг 7. Статический веб-сайт на S3
 ```
 # Создание бакета для веб-сайта
@@ -229,6 +230,7 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
 ```
+
 
 
 
