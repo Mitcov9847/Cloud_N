@@ -32,7 +32,7 @@ s3-lab/
 **Примечание:** В S3 "папки" — это префиксы ключей, а не реальные директории.  
 
 **Скриншот локальной структуры:**  
-![Структура папок](./screenshots/step1_structure.png)
+<img width="634" height="757" alt="{91E083EF-33E7-400F-AEF4-49325AB65691}" src="https://github.com/user-attachments/assets/8c74c934-fa0e-4b63-ab2b-f7a2988807b2" />
 
 **Вопросы и ответы:**
 
@@ -82,18 +82,24 @@ s3-lab/
 
 ### 3.1 Публичный бакет
 
-```powershell
+```
 # Загрузка user1.jpg
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user1.jpg" s3://cc-lab4-pub-01/avatars/user1.jpg
 ```
+<img width="1658" height="933" alt="{2AE3FA28-43D3-42CB-9753-C9E036DC0501}" src="https://github.com/user-attachments/assets/69297ae9-d0c8-49c5-b038-1cde0f6c11b4" />
+
 # Загрузка user2.jpg
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user2.jpg" s3://cc-lab4-pub-01/avatars/user2.jpg
+```
+<img width="1574" height="693" alt="{E75E9D7C-0C74-4795-897C-6C865CC826C9}" src="https://github.com/user-attachments/assets/3c2b729e-e1f3-4abe-8aa5-d3b256add2ed" />
 ```
 # Загрузка logo.png
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\content\logo.png" s3://cc-lab4-pub-01/content/logo.png
 ```
 
 Скриншот успешной загрузки:
+<img width="1599" height="665" alt="{EC2750A3-0A72-4DBB-999C-6A3FC29870F2}" src="https://github.com/user-attachments/assets/f137b88b-6887-4a71-928d-914b3e4bf6e6" />
+
 
 3.2 Приватный бакет
 powershell
@@ -190,6 +196,7 @@ aws s3api get-bucket-versioning --bucket cc-lab4-priv-01
 aws s3api put-bucket-lifecycle-configuration --bucket cc-lab4-priv-01 --lifecycle-configuration file://C:\Users\jenia\Desktop\s3-lab\lifecycle.json
 ```
 Скриншот Lifecycle правила:
+<img width="641" height="673" alt="{9D6034D2-E557-4F26-9005-335116ED0EFC}" src="https://github.com/user-attachments/assets/487751ce-830a-470a-9c5c-1bdfbd5450a6" />
 
 Вопросы и ответы:
 
@@ -215,9 +222,8 @@ aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user1.jpg" s3://cc-lab4-
 aws s3 cp "C:\Users\jenia\Desktop\s3-lab\public\avatars\user2.jpg" s3://cc-lab4-web-01/avatars/user2.jpg
 ```
 URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
-
 Скриншоты сайта:
-
+<img width="1604" height="932" alt="{1C5F9983-7D19-4F5E-89B5-4BC1BE4F2DCC}" src="https://github.com/user-attachments/assets/cb1e7f9c-718c-45e0-81f7-8d45acadc740" />
 
 Вопросы и ответы:
 
@@ -226,3 +232,4 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
+
