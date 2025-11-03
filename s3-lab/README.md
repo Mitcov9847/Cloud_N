@@ -117,20 +117,15 @@ sync — синхронизация директорий, копирует то�
 Делает объект публичным, доступным для всех по URL.
 
 # Шаг 4. Проверка доступа к объектам
+
 Публичные объекты доступны по ссылкам:
-
 user1.jpg
-
 user2.jpg
-
 logo.png
 
 Приватный объект activity.csv недоступен публично.
 
-Скриншот проверки:
-
-Вопросы и ответы:
-
+# Вопросы и ответы:
 Чем отличается публичный объект от приватного?
 Публичный доступен всем через URL, приватный — только владельцу или через IAM-политику.
 
@@ -148,7 +143,7 @@ aws s3api get-bucket-versioning --bucket cc-lab4-priv-01
 ```
 <img width="744" height="227" alt="{38C367F7-262E-4999-89DD-4EFC31E42066}" src="https://github.com/user-attachments/assets/5f214c32-f749-4b44-ac2e-e51f7d40a947" />
 
-Вопросы и ответы:
+# Вопросы и ответы:
 
 Что такое версионирование в S3?
 Позволяет хранить все версии объекта, включая старые, чтобы можно было восстановить изменения.
@@ -196,7 +191,7 @@ aws s3api put-bucket-lifecycle-configuration --bucket cc-lab4-priv-01 --lifecycl
 
 <img width="641" height="673" alt="{9D6034D2-E557-4F26-9005-335116ED0EFC}" src="https://github.com/user-attachments/assets/487751ce-830a-470a-9c5c-1bdfbd5450a6" />
 
-Вопросы и ответы:
+# Вопросы и ответы:
 Что такое Storage Class в S3?
 Класс хранения определяет стоимость и скорость доступа: Standard, Standard-IA, Glacier, Deep Archive.
 
@@ -230,6 +225,7 @@ URL сайта: http://cc-lab4-web-01.s3-website.eu-central-1.amazonaws.com/
 Как сделать файлы публичными?
 Через ACL (--acl public-read) или политику бакета.
 ```
+
 
 
 
