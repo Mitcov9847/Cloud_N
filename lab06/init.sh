@@ -94,9 +94,3 @@ chown -R nginx:nginx /var/www/html
 nginx -t
 systemctl restart php-fpm
 systemctl restart nginx
-
-
-# Проверяем конфиг и запускаем сервисы
-nginx -t
-systemctl restart php-fpm
-systemctl restart nginx
