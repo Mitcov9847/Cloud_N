@@ -382,19 +382,23 @@ terraform init
 terraform apply
 ```
 
-**Результат:** созданы VPC, подсети, Internet Gateway, Security Group, EC2-инстанс с nginx и PHP.
-
-Проверка веб-сервера через `http://<public_ip>`: страница загружается, ссылка `Generate CPU load` создаёт нагрузку.
+<img width="640" height="102" alt="{A5BD82BC-7B87-475D-B0E7-E6FEF8C30CDF}" src="https://github.com/user-attachments/assets/a36ecf9e-8ea9-4a82-a205-d91d74d35db6" />
+<img width="722" height="276" alt="{43D0583B-FAE4-436D-AA1D-F3D995ABA8D3}" src="https://github.com/user-attachments/assets/33a47b8d-c5dc-433c-b383-d8b493a64c9a" />
+<img width="597" height="613" alt="{3CB844BA-C922-48D2-BAFA-3A313A0156B2}" src="https://github.com/user-attachments/assets/51d89072-342f-49aa-96ab-b76fc843d5c5" />
+<img width="747" height="295" alt="{5C6510F1-EB7B-4CF9-BBD6-A22988BEC477}" src="https://github.com/user-attachments/assets/623eb606-ce1e-4701-9f62-8c642503d254" />
 
 ---
 
 ### 3. Создание AMI
 
-1. EC2 → Instances → Выбран EC2 `lab6-web-ec2`.  
-2. Actions → Image and templates → Create image → Название `project-web-server-ami`.  
-3. После создания AMI статус `Pending` → `Available`.
+Для создания образа виртуальной машины (AMI) была выполнена следующая последовательность действий:
 
-**Примечание:** AMI — шаблон виртуальной машины с ОС, настройками и ПО. Snapshot — резервная копия EBS-диска.
+1. В консоли AWS открыт раздел **EC2 → Instances**, выбран инстанс с уже установленным и настроенным веб-сервером (`lab6-web-ec2`).  
+2. Через меню **Actions → Image and templates → Create image** создан новый образ. В качестве имени образа указано `project-web-server-ami`. При необходимости добавлено описание, чтобы было понятно, что образ содержит настроенный веб-сервер с nginx и PHP. Выбрана опция перезагрузки инстанса для корректного сохранения данных файловой системы.  
+3. После подтверждения создания, в списке **AMIs** появился новый объект со статусом `Pending`. Через несколько минут AWS завершил создание образа, после чего статус изменился на `Available`.  
+
+<img width="1059" height="496" alt="{C626F1DE-83A6-45F2-A5D4-F236A70E51BA}" src="https://github.com/user-attachments/assets/9b2f9fae-2bbd-42a7-ae23-362057c7a1fe" />
+<img width="1227" height="129" alt="{BE645F26-AC61-4A65-B6A4-516A8C60EF0C}" src="https://github.com/user-attachments/assets/c0dc76ac-4be3-46cb-9aed-c5d84812b5ce" />
 
 ---
 
@@ -406,6 +410,9 @@ terraform apply
 - Security Group: `lab6-web-sg`.  
 - Detailed CloudWatch monitoring и user data включены.
 
+<img width="513" height="210" alt="{F9838F35-D577-4B54-9BC8-3B463571A28E}" src="https://github.com/user-attachments/assets/81504351-dcdf-4ec6-9190-3b4c3b85d119" />
+<img width="1229" height="118" alt="{3851DEEA-E7A1-4339-AC7C-1527C4356940}" src="https://github.com/user-attachments/assets/477343fd-110d-432e-9ca8-d56d30ae0b4e" />
+
 ---
 
 ### 5. Создание Target Group
@@ -413,6 +420,39 @@ terraform apply
 - EC2 → Target Groups → Create → Name: `project-target-group`.  
 - Protocol: HTTP, Port: 80, Target type: Instances, VPC: lab6-vpc.  
 - Health check: `/`, timeout 5s, interval 30s, healthy threshold 5, unhealthy threshold 2.
+
+#### 5.1. Настройка параметров Target Group
+В открывшемся окне необходимо задать следующие параметры:
+
+- **Target type:** Instances  
+- **Target group name:** project-target-group  
+- **Protocol:** HTTP  
+- **Port:** 80  
+- **VPC:** выбрать VPC, созданную ранее с помощью Terraform  
+
+#### 5.2. Настройка Health Checks
+Health checks — это механизм проверки состояния инстансов, который позволяет Load Balancer определить, какие серверы готовы обрабатывать запросы.  
+
+Параметры оставляем по умолчанию:  
+- **Health check protocol:** HTTP  
+- **Path:** /  
+- **Timeout:** 5 секунд  
+- **Interval:** 30 секунд  
+- **Healthy threshold:** 5  
+- **Unhealthy threshold:** 2  
+- **Success codes:** 200  
+
+**Пояснения:**  
+- Health check отправляет HTTP-запросы на указанный путь (`/`) и проверяет код ответа.  
+- Если инстанс отвечает корректно (код 200) указанное количество раз, он считается **healthy** и Load Balancer направляет на него трафик.  
+- Если инстанс не отвечает корректно указанное количество раз, он помечается как **unhealthy**, и трафик на него не направляется.  
+
+<img width="1114" height="748" alt="{8B6A027F-54CE-4BF6-A408-99B104919F46}" src="https://github.com/user-attachments/assets/f52d7398-fb68-4061-99e5-c65d9790a3ba" />
+
+<img width="1350" height="510" alt="{63903D0F-8467-4E23-BDB6-0F6E6EDFB10E}" src="https://github.com/user-attachments/assets/c6bba4f4-5c5f-4468-bd88-56c7a5d821c6" />
+<img width="1426" height="713" alt="{39B1C742-43ED-4A02-A845-A2DF1698BCBA}" src="https://github.com/user-attachments/assets/10360ee8-5d7e-45ca-919b-2a9444d4118b" />
+<img width="1892" height="432" alt="{009351CA-EF78-44F7-9B6E-3391A62E275B}" src="https://github.com/user-attachments/assets/6ab3637c-a247-41aa-a123-c962f4665880" />
+
 
 ---
 
@@ -424,6 +464,10 @@ terraform apply
 - Security Group: `lab6-web-sg`.  
 - Listener: HTTP 80 → Forward to `project-target-group`.
 
+<img width="1672" height="689" alt="{F7F3D452-F60A-4B2E-B76E-433D900BC548}" src="https://github.com/user-attachments/assets/5859e199-96e8-47e4-979f-6d9cc7eb0824" />
+<img width="1879" height="371" alt="{40C03634-310F-4A09-8BC8-47626628A7EA}" src="https://github.com/user-attachments/assets/ce9429ed-60ac-4e96-864b-f7c38b3e3bcd" />
+
+
 ---
 
 ### 7. Создание Auto Scaling Group
@@ -434,6 +478,9 @@ terraform apply
 - Size: Desired 2, Min 2, Max 4.  
 - Scaling Policy: Target Tracking → Average CPU Utilization 50%, Instance warm-up 60s.
 - CloudWatch Metrics включены.
+
+<img width="1338" height="712" alt="{12A11B99-B554-4D21-8CEA-6AEEA374150C}" src="https://github.com/user-attachments/assets/c408fd22-3b9e-4008-b60e-e3696ee1fa77" />
+<img width="1309" height="482" alt="{D56DCCB7-D119-4DEE-A303-574202D4D631}" src="https://github.com/user-attachments/assets/005d217f-d7e2-4d99-8c32-4f28b4b25ffe" />
 
 ---
 
@@ -538,6 +585,10 @@ hey -z 120s -c 50 http://project-alb-xxxx.elb.amazonaws.com/load?seconds=10
 - Учитывайте стоимость: масштабирование увеличивает расходы — не забывайте очищать ресурсы после тестов.  
 - Настройте корректные значения `deregistration delay`, `health check` и `instance warm-up` для предотвращения фальшивых срабатываний.
 
+<img width="1468" height="636" alt="{19D43188-64ED-451F-959F-EEEF72F34FDB}" src="https://github.com/user-attachments/assets/d8a6a96e-f209-4756-a395-1ec1ebe29ae9" />
+<img width="879" height="22" alt="{15EF25A3-778E-431F-9ECF-4B1C7D049A83}" src="https://github.com/user-attachments/assets/ede21bcb-2a11-46c2-a338-e1ad574010e3" />
+<img width="1542" height="40" alt="{E7871744-233F-4E1C-9ACB-09E3BFC24AB4}" src="https://github.com/user-attachments/assets/3faf5714-a618-4710-8e31-86c890cef958" />
+
 ---
 
 ## Вопросы и ответы
@@ -605,3 +656,21 @@ hey -z 120s -c 50 http://project-alb-xxxx.elb.amazonaws.com/load?seconds=10
 
 - Скриншоты интерфейса AWS (ALB, ASG, Target Group, AMI).  
 - Логи Terraform и CloudWatch.
+
+  ## Библиография
+
+1. **Amazon EC2 Documentation** — официальная документация по работе с виртуальными машинами Amazon EC2, созданию и использованию AMI, Launch Templates, настройке сетевых параметров и жизненному циклу инстансов.  
+   [https://docs.aws.amazon.com/ec2/](https://docs.aws.amazon.com/ec2/)
+
+2. **Elastic Load Balancing Documentation** — руководство по созданию и настройке Application Load Balancer, target groups, listeners и распределению трафика между EC2-инстансами.  
+   [https://docs.aws.amazon.com/elasticloadbalancing/](https://docs.aws.amazon.com/elasticloadbalancing/)
+
+3. **Amazon CloudWatch Documentation** — документация по мониторингу ресурсов AWS, настройке метрик, графиков загрузки CPU, тревог (Alarms) и интеграции с Auto Scaling.  
+   [https://docs.aws.amazon.com/cloudwatch/](https://docs.aws.amazon.com/cloudwatch/)
+
+4. **Amazon VPC Documentation** — справочник по созданию VPC, подсетей, маршрутов, Internet Gateway, Security Groups и сетевой архитектуре, использованной для развертывания приложения.  
+   [https://docs.aws.amazon.com/vpc/](https://docs.aws.amazon.com/vpc/)
+
+5. **Amazon Auto Scaling Documentation** — официальное руководство по настройке Auto Scaling Group, политик масштабирования (Target Tracking), параметра warm-up и автоматическому scale-in/scale-out.  
+   [https://docs.aws.amazon.com/autoscaling/](https://docs.aws.amazon.com/autoscaling/)
+
