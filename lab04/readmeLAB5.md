@@ -1,5 +1,7 @@
 # Лабораторная работа №5. Облачные базы данных. Amazon RDS
 
+# Введение  
+В данной лабораторной работе мы изучаем облачные сервисы Amazon Web Services (AWS), предназначенные для работы с реляционными и нереляционными базами данных. Основная цель — научиться развертывать Amazon RDS, создавать Read Replicas, подключаться к базе данных через EC2 и выполнять CRUD‑операции.
 
 ## Цель работы
 Целью работы является ознакомиться с сервисами Amazon RDS и научиться:
@@ -10,7 +12,7 @@
 
 ---
 
-## Шаг 1. Подготовка среды (VPC/подсети/SG)
+## Шаг 1. Подготовка инфраструктуры (VPC, Subnets, Security Groups)
 
 ### Действия:
 
@@ -32,11 +34,6 @@
 **Ответ:** Это обеспечивает изоляцию и безопасность: приложение имеет доступ к базе данных только через определенные правила, а база данных не открыта в интернет, что снижает риск несанкционированного доступа.
 
 **Место под скриншоты:**  
-![alt text]({A8474D88-9F95-4DD6-B73B-DED753ADAEE0}.png)
-![alt text]({E856A5FF-24C3-4142-B2F6-8B12615EE471}.png)
-![alt text]({F21C952F-F79D-411B-82A9-132CC32E2243}.png)
-![alt text]({1B0C3110-EF32-44FE-B6E8-9CEE0477602B}.png)
-![alt text]({7F91E9F9-33A6-4B8F-B967-4E0DB68058D6}.png)
 ---
 
 ## Шаг 2. Развертывание Amazon RDS
@@ -45,18 +42,21 @@
 
 1. Создал Subnet Group `project-rds-subnet-group` и добавил две приватные подсети.
 2. Создал базу данных MySQL 8.0.42 через Standard Create:
-   - DB instance identifier: `project-rds-mysql-prod`
-   - Master username: `admin`
-   - DB instance class: `db.t3.micro`
-   - Storage: 20GB, автоподстройка включена
-   - Public access: No
-   - Security group: `db-mysql-security-group`
-   - Initial database name: `project_db`
-   - Enable automated backup: Yes
-   - Enable encryption: No
-   - Auto minor version upgrade: No
+- **Creation method:** Standard Create  
+- **Engine:** MySQL  
+- **Version:** 8.0.42  
+- **Template:** Free Tier  
+- **DB instance identifier:** project-rds-mysql-prod  
+- **Master username:** admin  
+- **Class:** db.t3.micro  
+- **Storage:** gp3, 20 GB, autoscaling до 100 GB  
+- **Public access:** No  
+- **VPC:** project-vpc  
+- **DB subnet group:** project-rds-subnet-group  
+- **Security group:** db-mysql-security-group  
+- **Initial DB:** project_db  
 
-3. Дождался статуса `Available` и скопировал Endpoint для подключения.
+После создания копируем **Endpoint**.
 
 **Контрольный вопрос:**  
 *Что такое Subnet Group и зачем она нужна?*  
@@ -73,7 +73,9 @@
 2. Назначил Security Group `web-security-group`.
 3. Установил MySQL клиент на EC2:
 
+## Устанавливаем MySQL-клиент:
 ```bash
+#!/bin/bash
 dnf update -y
 dnf install -y mariadb105
 ```
@@ -106,16 +108,16 @@ USE project_db;
 
 ```sql
 CREATE TABLE categories (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE todos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(100) NOT NULL,
-    category_id INT,
-    status VARCHAR(20),
-    FOREIGN KEY (category_id) REFERENCES categories(id)
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255),
+  status VARCHAR(50),
+  category_id INT,
+  FOREIGN KEY (category_id) REFERENCES categories(id)
 );
 ```
 
@@ -132,11 +134,11 @@ CREATE TABLE todos (
 ### Действия:
 
 1. В консоли AWS выбрал базу `project-rds-mysql-prod` и создал Read Replica:
-   - DB instance identifier: `project-rds-mysql-read-replica`
-   - Instance class: `db.t3.micro`
-   - Storage type: General Purpose SSD (gp3)
-   - Public access: No
-   - VPC security groups: `db-mysql-security-group`
+- Identifier: project-rds-mysql-read-replica
+- Class: db.t3.micro
+- Public access: No
+- Security group: db-mysql-security-group
+После запуска — копируем endpoint реплики.
 
 2. Дождался статуса `Available`.
 3. Подключился к Read Replica и выполнил SELECT-запросы для проверки данных.
@@ -150,8 +152,28 @@ CREATE TABLE todos (
 **Контрольный вопрос:**  
 *Зачем нужны Read Replicas?*  
 **Ответ:** Для разгрузки основной базы, повышения производительности запросов на чтение и обеспечения отказоустойчивости.
-
+- масштабирования нагрузки на чтение;
+- аналитики;
+- резервного копирования;
+  
 ---
+# Подключение приложения к RDS (вариант на выбор)
+
+## Создание простого CRUD‑приложения
+Приложение должно:
+- писать/обновлять в master;
+- читать из read replica.
+
+##  Использование PHP‑проекта из ЛР №4
+Изменяем параметры подключения:
+
+```php
+$host = "project-rds-mysql-prod.xxxxxx.rds.amazonaws.com";
+$user = "admin";
+$pass = "********";
+$db   = "project_db";
+```
+После этого приложение полностью работает на Amazon RDS.
 
 ## Шаг 6. Подключение приложения к базе данных
 
@@ -169,6 +191,16 @@ CREATE TABLE todos (
 
 ---
 
+# Заключение
+
+В ходе работы выполнено:
+- создание изолированной облачной инфраструктуры AWS;
+- развертывание Amazon RDS MySQL в приватных подсетях;
+- подключение через EC2;
+- создание таблиц и выполнение SQL‑операций;
+- создание Read Replica и проверка работы репликации;
+- подключение приложения к AWS RDS.
+- 
 ## Вывод
 
 В ходе лабораторной работы я познакомился с Amazon RDS, создал базу данных MySQL, настроил безопасность через VPC и Security Groups, развернул EC2, подключился к базе, создал таблицы и наполнил их данными, создал Read Replica и проверил синхронизацию. Также настроил веб-приложение для работы с основной базой и репликой, выполнил CRUD-операции и убедился в правильности архитектуры.
